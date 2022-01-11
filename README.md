@@ -1,3 +1,30 @@
+# Developing emWin for N9H26 through Visual Studio 2022 Community and GNU Arm Embedded Toolchain on Windows 10
+
+## Build Environment
+* Microsoft Visual Studio 2022 Community (Visual C++)
+* GNU Arm Embedded Toolchain
+
+  https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
+  
+  Alter **BuildCmd.bat**
+  ```
+  set GNU_TOOLS_ARM_EMBEDDED_PATH="C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\bin"
+  ```
+* msys2
+  
+  https://www.msys2.org/
+  
+  Install the 'make' tool
+  ```
+  pacman -Sy base-devel
+  ```
+  Alter **BuildCmd.bat**
+  ```
+  set make_tool_provided_by=C:\msys64\usr\bin
+  ```
+
+
+
 # Disclaimer
 The Software is furnished "AS IS", without warranty as to performance or results, and
 the entire risk as to performance or results is assumed by YOU. Nuvoton disclaims all
