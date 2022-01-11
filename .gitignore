@@ -1,0 +1,15 @@
+
+*.obj
+*.ipch
+*.tlog
+*.pdb
+*.idb
+*.ilk
+*.log
+*.exp
+*.db
+BSP/SampleCode/emWin/GUIDemo/VC2022/ARM/Debug/.map
+BSP/SampleCode/emWin/GUIDemo/VC2022/.vs/NuDemo/v17/.suo
+BSP/SampleCode/emWin/GUIDemo/VC2022/ARM/Debug/emWin_GUIDemo.bin
+*.o
+*.d

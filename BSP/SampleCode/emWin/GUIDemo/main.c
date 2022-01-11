@@ -20,7 +20,7 @@
 #pragma data_alignment = 32
 UINT8 u8FrameBuf[XSIZE_PHYS*YSIZE_PHYS*2];
 #else
-UINT8 u8FrameBuf[XSIZE_PHYS*YSIZE_PHYS*2] __attribute__((aligned(32)));
+UINT8 ALIGNED_(32) u8FrameBuf[XSIZE_PHYS * YSIZE_PHYS * 2];
 #endif
 
 UINT8 *u8FrameBufPtr;
@@ -33,7 +33,7 @@ extern int ts_readfile(int hFile);
 extern int ts_calibrate(int xsize, int ysize);
 extern void TouchTask(void);
 
-#ifndef STORAGE_SD
+#if defined (STORAGE_SD) && (STORAGE_SD == 0)
 #define NAND_2      1   // comment to use 1 disk foor NAND, uncomment to use 2 disk
 UINT32 StorageForNAND(void);
 
@@ -111,7 +111,9 @@ halt:
 */
 void TMR0_IRQHandler(void)
 {
+#ifndef _MSC_VER
     OS_TimeMS++;
+#endif
 }
 
 /*********************************************************************
@@ -187,7 +189,9 @@ static void _SYS_Init(void)
 #endif
 
     /* start timer 0 */
+#ifndef _MSC_VER
     OS_TimeMS = 0;
+#endif
 
     sysSetTimerReferenceClock(TIMER0, u32ExtFreq);  //External Crystal
     sysStartTimer(TIMER0, 1000, PERIODIC_MODE);     /* 1000 ticks/per sec ==> 1tick/1ms */
@@ -197,7 +201,7 @@ static void _SYS_Init(void)
     sysprintf("fsInitFileSystem.\n");
     fsInitFileSystem();
 
-#ifdef STORAGE_SD
+#if defined (STORAGE_SD) && (STORAGE_SD == 1)
     /*-----------------------------------------------------------------------*/
     /*  Init SD card                                                         */
     /*-----------------------------------------------------------------------*/
@@ -245,22 +249,32 @@ int main(void)
     {
         // file does not exists, so do calibration
         hFile = fsOpenFile(szCalibrationFile, szFileName, O_CREATE|O_RDWR | O_FSEEK);
-        if ( hFile < 0 )
+        if (hFile < 0)
         {
             sysprintf("CANNOT create the calibration file\n");
-            return -1;
+            //return -1;
         }
+
         GUI_Init();
+
         ts_calibrate(LCD_XSIZE, LCD_YSIZE);
-        ts_writefile(hFile);
+
+        if (hFile)
+        {
+        	ts_writefile(hFile);
+        }
     }
     else
     {
         ts_readfile(hFile);
     }
-    fsCloseFile(hFile);
 
-#ifndef STORAGE_SD
+    if (hFile)
+    {
+    	fsCloseFile(hFile);
+    }
+
+#if defined (STORAGE_SD) && (STORAGE_SD == 0)
     GNAND_UnMountNandDisk(&ptNDisk);
     sicClose();
 #endif
@@ -277,3 +291,193 @@ int main(void)
 }
 
 /*************************** End of file ****************************/
+
+#ifdef _MSC_VER
+
+void sysUartPort(UINT32 u32Port) {}
+
+INT32 sysInitializeUART(WB_UART_T* uart)
+{
+    return 0;
+}
+
+VOID sysprintf(PINT8 pcStr, ...) {}
+
+INT nand_ioctl(INT param1, INT param2, INT param3, INT param4) 
+{ 
+    return 0; 
+}
+
+INT nandInit0(NDISK_T* NDISK_info)
+{
+    return 0;
+}
+
+INT nandpread0(INT PBA, INT page, UINT8* buff)
+{
+    return 0;
+}
+
+INT nandpwrite0(INT PBA, INT page, UINT8* buff)
+{
+    return 0;
+}
+
+INT nand_is_page_dirty0(INT PBA, INT page)
+{
+    return 0;
+}
+
+INT nand_is_valid_block0(INT PBA)
+{
+    return 0;
+}
+
+INT nand_block_erase0(INT PBA)
+{
+    return 0;
+}
+
+INT nand_chip_erase0(void)
+{
+    return 0;
+}
+
+INT  GNAND_InitNAND(NDRV_T* ndriver, NDISK_T* ptNDisk, BOOL bEraseIfNotGnandFormat) 
+{
+    return 0;
+}
+
+INT  GNAND_MountNandDisk(NDISK_T* ptNDisk)
+{
+    return 0;
+}
+
+VOID GNAND_UnMountNandDisk(NDISK_T* ptNDisk) {}
+
+INT32 sysEnableCache(UINT32 uCacheOpMode)
+{
+    return 0;
+}
+
+VOID sysFlushCache(INT32 nCacheType) {}
+VOID sysInvalidCache() {}
+
+INT32 DrvADC_Open(void)
+{
+    return 0;
+}
+
+INT32 DrvADC_Close(void)
+{
+    return 0;
+}
+
+INT32 adc_read(unsigned char mode, unsigned short int* x, unsigned short int* y)
+{
+    return 0;
+}
+
+INT32 IsPenDown(void)
+{
+    return 0;
+}
+
+INT  fsInitFileSystem(VOID)
+{
+    return 0;
+}
+
+INT  fsAssignDriveNumber(INT nDriveNo, INT disk_type, INT instance, INT partition)
+{
+    return 0;
+}
+
+INT  fsDiskFreeSpace(INT nDriveNo, UINT32* puBlockSize, UINT32* puFreeSize, UINT32* puDiskSize)
+{
+    return 0;
+}
+
+INT  fsTwoPartAndFormatAll(PDISK_T* ptPDisk, INT firstPartSize, INT secondPartSize)
+{
+    return 0;
+}
+
+INT  fsSetVolumeLabel(INT nDriveNo, CHAR* szLabel, INT nLen)
+{
+    return 0;
+}
+
+INT  fsOpenFile(CHAR* suFileName, CHAR* szAsciiName, UINT32 uFlag)
+{
+    return 0;
+}
+
+INT  fsCloseFile(INT hFile)
+{
+    return 0;
+}
+
+INT  fsAsciiToUnicode(VOID* pvASCII, VOID* pvUniStr, BOOL bIsNullTerm)
+{
+    return 0;
+}
+
+INT  fsReadFile(INT hFile, UINT8* pucPtr, INT nBytes, INT* pnReadCnt)
+{
+    return 0;
+}
+
+INT  fsWriteFile(INT hFile, UINT8* pucBuff, INT nBytes, INT* pnWriteCnt)
+{
+    return 0;
+}
+
+INT64  fsFileSeek(INT hFile, INT64 n64Offset, INT16 usWhence)
+{
+    return 0;
+}
+
+void sicOpen(void) {}
+void sicClose(void) {}
+
+INT32 vpostLCMInit(PLCDFORMATEX plcdformatex, UINT32* pFramebuf)
+{
+    return 0;
+}
+
+INT32 sysSetTimerReferenceClock(INT32 nTimeNo, UINT32 uClockRate)
+{
+    return 0;
+}
+
+INT32 sysStartTimer(INT32 nTimeNo, UINT32 uTicksPerSecond, INT32 nOpMode)
+{
+    return 0;
+}
+
+INT32 sysSetTimerEvent(INT32 nTimeNo, UINT32 uTimeTick, PVOID pvFun)
+{
+    return 0;
+}
+
+UINT32 sysGetExternalClock(void)
+{
+    return 0;
+}
+
+ERRCODE
+sysSetSystemClock(E_SYS_SRC_CLK eSrcClk,        // Specified the system clock come from external clock, APLL or UPLL
+    UINT32 u32PllHz,            // Specified the APLL/UPLL clock
+    UINT32 u32SysHz         // Specified the system clock
+)
+{
+    return 0;
+}
+
+UINT32 sysSetDramClock(E_SYS_SRC_CLK eSrcClk, UINT32 u32PLLClockHz, UINT32 u32DdrClock)
+{
+    return 0;
+}
+
+#endif
