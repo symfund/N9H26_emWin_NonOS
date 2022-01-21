@@ -61,10 +61,6 @@
       <Filter>ThirdParty\emWin\Config\WIN32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\main.c" />
-    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\fbutils.c" />
-    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\N9H26TouchPanel.c" />
-    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\testutils.c" />
-    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\ts_calibrate.c" />
     <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\Application\GUIDEMO.c">
       <Filter>SampleCode\emWin\GUIDemo\Application</Filter>
     </ClCompile>
@@ -139,6 +135,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\Application\GUIDEMO_ZoomAndRotate.c">
       <Filter>SampleCode\emWin\GUIDemo\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\fbutils.c">
+      <Filter>SampleCode\emWin\GUIDemo\tslib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\N9H26TouchPanel.c">
+      <Filter>SampleCode\emWin\GUIDemo\tslib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\testutils.c">
+      <Filter>SampleCode\emWin\GUIDemo\tslib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\BSP\SampleCode\emWin\GUIDemo\tslib\ts_calibrate.c">
+      <Filter>SampleCode\emWin\GUIDemo\tslib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

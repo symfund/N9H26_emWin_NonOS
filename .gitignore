@@ -13,3 +13,4 @@ BSP/SampleCode/emWin/GUIDemo/VC2022/.vs/NuDemo/v17/.suo
 BSP/SampleCode/emWin/GUIDemo/VC2022/ARM/Debug/emWin_GUIDemo.bin
 *.o
 *.d
+*.recipe

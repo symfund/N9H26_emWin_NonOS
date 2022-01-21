@@ -61,7 +61,7 @@
     <NMakeCleanCommandLine>BuildCmd.bat clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>BuildCmd.bat rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <TargetName>NuDemo</TargetName>
+    <TargetName>HMI</TargetName>
     <OutDir>$(ProjectDir)</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -70,7 +70,7 @@
     <NMakeCleanCommandLine>BuildCmd.bat clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>BuildCmd.bat rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <TargetName>NuDemo</TargetName>
+    <TargetName>HMI</TargetName>
     <OutDir>$(ProjectDir)</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
