@@ -181,7 +181,7 @@ finalization: $(MAIN)
 	arm-none-eabi-size --format=berkeley "$<"
 	@echo ' '
 	
-rebuild: all
+rebuild: clean all
 	@echo "rebuild done"
 	
 clean:
